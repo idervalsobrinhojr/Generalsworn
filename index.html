@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Action Roll</title>
+
+<style>
+
+
+@font-face{
+
+    font-family:"IM Fell English";
+    src:url("fonts/IMFellEnglish-Regular.ttf");
+
+}
+
+body{
+
+    font-family:"IM Fell English", serif;
+
+}
+
+
+body{
+
+    margin:0;
+
+    padding:30px;
+
+    background:#b79c67;
+
+    background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.25), transparent 35%),
+    radial-gradient(circle at 80% 70%, rgba(0,0,0,.08), transparent 40%),
+    linear-gradient(#d8c59a,#cdb582);
+
+    font-family:'IM Fell English', serif;
+
+}
+
+.container{
+
+    position:relative;
+    width:800px;
+    margin:20px auto;
+
+}
+
+
+h1{
+
+    text-align:center;
+    color:#3d2714;
+    letter-spacing:3px;
+    font-size:42px;
+    margin-top:0;
+
+}
+
+
+
+input[type=number]{
+
+    position:absolute;
+    width:48px;
+    height:30px;
+    font-family:'IM Fell English', serif;
+    text-shadow:1px 1px 1px rgba(0,0,0,.25);
+    text-align:center;
+    background:transparent;
+    #background:rgba(255,0,0,.10);
+    border:none;
+    outline:none;
+
+}
+
+select{
+
+    font-size:17px;
+    padding:5px;
+    background:#fffdf3;
+    border:2px solid #5d4520;
+
+}
+
+button{
+
+    position:absolute;
+    left:150px;
+    top:425px;
+    width:480px;      /* ajuste conforme o desenho */
+    height:72px;      /* esta é a altura do botão */
+    background:transparent;
+    border:none;
+    cursor:pointer;
+
+}
+
+button:hover{
+
+    background:transparent;
+
+}
+
+
+.trilha{
+
+   display:flex;
+   gap:8px;
+   flex-wrap:wrap;
+
+}
+
+.segmento{
+
+    width:26px;
+    height:26px;
+    border:2px solid #513717;
+    background:#faf7eb;
+    cursor:pointer;
+    transition:.15s;
+
+}
+
+.segmento.preenchido{
+
+    background:#6b1d1d;
+
+}
+
+.tituloResultado{
+
+    font-size:34px;
+    font-weight:bold;
+    margin-bottom:8px;
+
+}
+
+#resultado{
+
+    position:absolute;
+    left:240px;
+    top:690px;
+    margin-top:20px;
+    background:transparent;
+    border:none;
+    padding:20px;
+    min-height:140px;
+    line-height:1.2;
+
+}
+
+#painel{
+
+    width:100%;
+    display:block;
+    height:auto;
+    user-select:none;
+    pointer-events:none;
+
+}
+
+
+#voFisico{
+
+    left:120px;
+    top:148px;
+    width:100px;
+    height:40px;
+    font-size:48px;
+
+}
+
+#voSocial{
+
+    left:355px;
+    top:148px;
+    width:100px;
+    height:40px;
+    font-size:48px;
+
+}
+
+#voMental{
+
+    left:590px;
+    top:148px;
+    width:100px;
+    height:40px;
+    font-size:48px;
+
+}
+#atributo{
+
+    left:175px;
+    top:575px;
+    width:45px;
+    height:40px;
+    font-size:48px;
+
+}
+#bonus{
+
+    left:280px;
+    top:575px;
+    width:45px;
+    height:40px;
+    font-size:48px;
+
+}
+
+#dadoAcao{
+
+    position:absolute;
+    left:60px;
+    top:570px;
+    width:55px;
+    height:45px;
+    background:transparent;
+    border:none;
+    font-size:34px;
+    font-family:'IM Fell English', serif;
+    text-align:center;
+
+}
+
+#desafio1{
+
+    position:absolute;
+    left:520px;
+    top:582px;
+    width:55px;
+    height:35px;
+    background:transparent;
+    border:none;
+    font-size:34px;
+    font-family:'IM Fell English', serif;
+    text-align:center;
+
+}
+
+#desafio2{
+
+    position:absolute;
+    left:575px;
+    top:582px;
+    width:55px;
+    height:35px;
+    background:transparent;
+    border:none;
+    font-size:34px;
+    font-family:'IM Fell English', serif;
+    text-align:center;
+
+}
+
+#actionRoll{
+
+    position:absolute;
+    left:380px;
+    top:570px;
+    width:80px;
+    height:50px;
+    background:transparent;
+    border:none;
+    outline:none;
+    text-align:center;
+    font-size:50px;
+    color:#2b1c12;
+    font-family:'IM Fell English', serif;
+
+}
+
+#voSelecionado{
+
+    position:absolute;
+    left:665px;   /* ajuste conforme a imagem */
+    top:570px;
+    width:50px;
+    height:50px;
+    background:transparent;
+    border:none;
+    outline:none;
+    text-align:center;
+    font-size:50px;
+    color:#2b1c12;
+    font-family:'IM Fell English', serif;
+
+}
+
+#radioFisico{
+
+    position:absolute;
+    left:222px;
+    top:244px;
+
+}
+
+#radioSocial{
+
+    position:absolute;
+    left:464px;
+    top:244px;
+
+}
+
+#radioMental{
+
+    position:absolute;
+    left:700px;
+    top:243px;
+
+}
+
+#botao{}
+#trilhaPersonagem{}
+#trilhaAdversario{}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<img id="painel" src="ActionRollPicture.png">
+
+
+<label>
+
+
+<input id="voFisico" type="number" value="4">
+
+<input id="radioFisico" type="radio" name="vo" value="fisico" checked>
+
+</label>
+
+<label>
+
+
+
+<input id="voSocial" type="number" value="4">
+
+<input id="radioSocial" type="radio" name="vo" value="social">
+
+</label>
+
+<label>
+
+
+<input id="voMental" type="number" value="4">
+
+<input id="radioMental" type="radio" name="vo" value="mental">
+
+</label>
+
+
+
+<label>
+
+
+
+<input id="atributo" type="number" value="0">
+
+</label>
+
+<label>
+
+
+
+<input id="bonus" type="number" value="0">
+
+</label>
+
+
+<button onclick="rolar()">
+
+
+</button>
+
+<input id="dadoAcao" type="text" readonly>
+
+<input id="desafio1" type="text" readonly>
+
+<input id="desafio2" type="text" readonly>
+
+<input id="actionRoll" type="text" readonly>
+
+<input id="voSelecionado" type="text" readonly>
+
+
+
+<hr>
+
+<h2>Trilhas de Progresso</h2>
+
+<h3>Personagem</h3>
+
+<div id="trilhaPersonagem"></div>
+
+<br>
+
+<h3>Adversário</h3>
+
+<label>
+
+
+<select id="tipoAdversario" onchange="criarTrilhaAdversario()">
+
+<option value="4">Fraco</option>
+
+<option value="6" selected>Comum</option>
+
+<option value="8">Perigoso</option>
+
+<option value="10">Chefão</option>
+
+</select>
+
+</label>
+
+<br><br>
+
+<div id="trilhaAdversario"></div>
+
+<hr>
+
+<div id="resultado">
+
+Aguardando rolagem...
+
+</div>
+
+</div>
+
+<script>
+
+function d6(){
+
+    return Math.floor(Math.random()*6)+1;
+
+}
+
+function d10(){
+
+    return Math.floor(Math.random()*10)+1;
+
+}
+
+function rolar(){
+
+    let atributo=parseInt(document.getElementById("atributo").value)||0;
+
+    let bonus=parseInt(document.getElementById("bonus").value)||0;
+
+    let voSelecionado=document.querySelector("input[name=vo]:checked").value;
+
+    let vo;
+
+    if(voSelecionado=="fisico"){
+
+        vo=parseInt(document.getElementById("voFisico").value);
+
+    }
+
+    if(voSelecionado=="social"){
+
+        vo=parseInt(document.getElementById("voSocial").value);
+
+    }
+
+    if(voSelecionado=="mental"){
+
+        vo=parseInt(document.getElementById("voMental").value);
+
+    }
+
+    let dadoAcao=d6();
+
+    let desafio1=d10();
+
+    let desafio2=d10();
+
+    let actionRoll=dadoAcao+atributo+bonus;
+
+    let sucessos=0;
+
+    if(actionRoll>desafio1) sucessos++;
+
+    if(actionRoll>desafio2) sucessos++;
+
+    let tipo="";
+
+    if(sucessos==2){
+
+        tipo="Strong Hit";
+
+    }else if(sucessos==1){
+
+        tipo="Weak Hit";
+
+    }else{
+
+        tipo="Miss";
+
+    }
+
+    let venceuVO=actionRoll>vo;
+
+    document.getElementById("dadoAcao").value = dadoAcao;
+
+    document.getElementById("desafio1").value = desafio1;
+
+    document.getElementById("desafio2").value = desafio2;
+
+    document.getElementById("actionRoll").value = actionRoll;
+
+    document.getElementById("voSelecionado").value = vo;
+
+    let texto="<div class='tituloResultado'>"+tipo+"</div>";
+
+    texto+="<p>";
+
+    texto+=venceuVO?
+
+    "Action Roll venceu o VO.<br>":
+
+    "Action Roll NÃO venceu o VO.<br>";
+
+    if(tipo=="Strong Hit"){
+
+        if(venceuVO){
+
+            texto+="Resultado 1<br>";
+
+            texto+="✔ Marque <b>2 segmentos do adversário.</b>";
+
+        }else{
+
+            texto+="Resultado 2<br><br>";
+
+            texto+="➜ Nenhum segmento é marcado.";
+
+        }
+
+    }
+
+    if(tipo=="Weak Hit"){
+
+        if(venceuVO){
+
+            texto+="Resultado 3<br>";
+
+            texto+="✔ Marque 1 segmento do adversário.<br>";
+
+            texto+="✔ Marque 1 segmento do personagem.";
+
+        }else{
+
+            texto+="Resultado 4<br>";
+
+            texto+="✔ Marque 1 segmento do adversário.<br>";
+
+            texto+="✔ Marque 2 segmentos do personagem.";
+
+        }
+
+    }
+
+    if(tipo=="Miss"){
+
+        if(venceuVO){
+
+            texto+="Resultado 5<br>";
+
+            texto+="✔ Marque 1 segmento do personagem.";
+
+        }else{
+
+            texto+="Resultado 6<br>";
+
+            texto+="✔ Marque 2 segmentos do personagem.";
+
+        }
+
+    }
+
+    texto+="</p>";
+
+    document.getElementById("resultado").innerHTML=texto;
+
+}
+
+function criarTrilha(id,total){
+
+let div=document.getElementById(id);
+
+div.innerHTML="";
+
+div.className="trilha";
+
+for(let i=0;i<total;i++){
+
+let s=document.createElement("div");
+
+s.className="segmento";
+
+s.onclick=function(){
+
+s.classList.toggle("preenchido");
+
+};
+
+div.appendChild(s);
+
+}
+
+}
+
+function criarTrilhaAdversario(){
+
+let total=parseInt(
+
+document.getElementById("tipoAdversario").value
+
+);
+
+criarTrilha("trilhaAdversario",total);
+
+}
+
+criarTrilha("trilhaPersonagem",6);
+
+criarTrilhaAdversario();
+
+</script>
+
+
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+</body>
+
+</html>
